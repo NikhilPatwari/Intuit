@@ -1,0 +1,184 @@
+<p>
+  <mat-toolbar color="primary">
+    <span>QuickBooks</span>
+  </mat-toolbar>
+</p>
+<div>
+  <div *ngIf="isLoginPage" class="frontPage">
+    <div style="width: 70%;margin-left: 15%;margin-top: 25px;text-align: center;">
+      <form #profile="ngForm" style="padding-top: 200px;">
+        <mat-form-field >
+          <mat-label>Business ID</mat-label>
+          <input id='bid' matInput type="text" [(ngModel)]="businessId" name="bid"
+            #bid="ngModel" required />
+        </mat-form-field>
+        <button mat-raised-button color="primary" style="margin-left: 10px;" (click)="login(businessId!!)">Login</button>
+      </form>
+      <p>Don't have an account? <a href="#" (click)="openCreatepage()">Signup</a> </p>
+    </div>
+  </div>
+  <div *ngIf="!isLoginPage" class="frontPage">
+    <button mat-raised-button color="primary" (click)="openLoginPage()">Back</button>
+    <p class="header">Business Profile : {{businessProfile.id}}</p>
+    <form #businessProfileForm="ngForm">
+      <mat-accordion>
+        <mat-expansion-panel expanded="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>Profile</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-grid-list cols="12" rowHeight="80px" class="example-full-width">
+            <mat-grid-tile colspan="4">
+              <mat-form-field  class="example-full-width" ngbAutofocus>
+                <mat-label>Company Name</mat-label>
+                <input id='companyName' matInput type="text" [(ngModel)]="businessProfile.companyName"
+                  name="comapnayName" #companyName="ngModel" required />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="4">
+              <mat-form-field  class="example-full-width">
+                <mat-label>Legal Name</mat-label>
+                <input id='legalName' matInput type="text" [(ngModel)]="businessProfile.legalName" name="legalName"
+                  #legalName="ngModel" required />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="4">
+              <mat-form-field  class="example-full-width">
+                <mat-label>Email</mat-label>
+                <input id='email' matInput type="text" [(ngModel)]="businessProfile.email" name="email" #email="ngModel"
+                  required />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="4">
+              <mat-form-field  class="example-full-width">
+                <mat-label>PAN</mat-label>
+                <input id='pan' matInput type="text" [(ngModel)]="businessProfile.pan" name="pan" #pan="ngModel" />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="4">
+              <mat-form-field  class="example-full-width">
+                <mat-label>EIN</mat-label>
+                <input id='ein' matInput type="text" [(ngModel)]="businessProfile.ein" name="ein" #ein="ngModel" />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="4">
+              <mat-form-field  class="example-full-width">
+                <mat-label>Website Url</mat-label>
+                <input id='website' matInput type="text" [(ngModel)]="businessProfile.website" name="website"
+                  #website="ngModel" />
+              </mat-form-field>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Legal Address</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-grid-list cols="12" rowHeight="80px">
+            <mat-grid-tile colspan="6">
+              <mat-form-field  class="example-full-width">
+                <mat-label>Address Line 1</mat-label>
+                <input id='la_addressLine1' matInput type="text" [(ngModel)]="businessProfile.legalAddress.addressLine1"
+                  name="la_addressLine1" #la_addressLine1="ngModel" required />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="6">
+              <mat-form-field  class="example-full-width">
+                <mat-label>Address Line 2</mat-label>
+                <input id='la_addressLine2' matInput type="text" [(ngModel)]="businessProfile.legalAddress.addressLine2"
+                  name="la_addressLine2" #la_addressLine2="ngModel" />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+              <mat-form-field  class="example-full-width">
+                <mat-label>Pincode / Zip</mat-label>
+                <input id='la_zip' matInput type="text" [(ngModel)]="businessProfile.legalAddress.zip" name="la_zip"
+                  #la_zip="ngModel" required />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+              <mat-form-field  class="example-full-width">
+                <mat-label>City</mat-label>
+                <input id='la_city' matInput type="text" [(ngModel)]="businessProfile.legalAddress.city" name="la_city"
+                  #la_city="ngModel" required />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+              <mat-form-field  class="example-full-width">
+                <mat-label>State</mat-label>
+                <input id='la_state' matInput type="text" [(ngModel)]="businessProfile.legalAddress.state"
+                  name="la_state" #la_state="ngModel" required />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+              <mat-form-field  class="example-full-width">
+                <mat-label>Country</mat-label>
+                <input id='la_country' matInput type="text" [(ngModel)]="businessProfile.legalAddress.country"
+                  name="la_country" #la_country="ngModel" required />
+              </mat-form-field>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Business Address</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-grid-list cols="12" rowHeight="80px">
+            <mat-grid-tile colspan="4">
+              <mat-checkbox [(ngModel)]="checked" name="cb1" #cb1="ngModel"
+                (ngModelChange)="setBusinessAddressSameAsLegalAddress()">Same as Legal Address</mat-checkbox>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="8"></mat-grid-tile>
+            <mat-grid-tile colspan="6">
+              <mat-form-field  class="example-full-width">
+                <mat-label>Address Line 1</mat-label>
+                <input id='ba_addressLine1' matInput type="text"
+                  [(ngModel)]="businessProfile.businessAddress.addressLine1" name="ba_addressLine1"
+                  #ba_addressLine1="ngModel" required />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="6">
+              <mat-form-field  class="example-full-width">
+                <mat-label>Address Line 2</mat-label>
+                <input id='ba_addressLine2' matInput type="text"
+                  [(ngModel)]="businessProfile.businessAddress.addressLine2" name="ba_addressLine2"
+                  #ba_addressLine2="ngModel" />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+              <mat-form-field  class="example-full-width">
+                <mat-label>Pincode / Zip</mat-label>
+                <input id='ba_zip' matInput type="text" [(ngModel)]="businessProfile.businessAddress.zip" name="ba_zip"
+                  #ba_zip="ngModel" required />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+              <mat-form-field  class="example-full-width">
+                <mat-label>City</mat-label>
+                <input id='ba_city' matInput type="text" [(ngModel)]="businessProfile.businessAddress.city"
+                  name="ba_city" #ba_city="ngModel" required />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+              <mat-form-field  class="example-full-width">
+                <mat-label>State</mat-label>
+                <input id='ba_state' matInput type="text" [(ngModel)]="businessProfile.businessAddress.state"
+                  name="ba_state" #ba_state="ngModel" required />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+              <mat-form-field  class="example-full-width">
+                <mat-label>Country</mat-label>
+                <input id='ba_country' matInput type="text" [(ngModel)]="businessProfile.businessAddress.country"
+                  name="ba_country" #ba_country="ngModel" required />
+              </mat-form-field>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    <div class="div" style="margin-top: 10px; text-align: right;">
+      <button type="submit" mat-raised-button color="primary" *ngIf="isNewProfile" (click)="createBusinessProfile()">Create</button>
+      <button type="submit" mat-raised-button color="primary" *ngIf="!isNewProfile" (click)="updateBusinessProfile()" >Update</button>
+    </div>
+    </form>
+  </div>
+</div>

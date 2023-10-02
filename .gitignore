@@ -1,0 +1,7 @@
+*/.idea/
+*/target/
+qb-web/.angular/
+qb-web/.vscode/
+qb-web/dist/
+qb-web/node_modules/
+qb-web/package-lock.json
