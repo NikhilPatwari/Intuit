@@ -30,6 +30,7 @@ export class AppComponent {
     this.isLoginPage = true;
     this.businessId = "";
     this.isNewProfile = true;
+    this.businessProfile = this.profileService.getDummyBusinessProfile();
   }
   setBusinessAddressSameAsLegalAddress() {
     if (this.checked) {
@@ -80,6 +81,22 @@ export class AppComponent {
     this.profileService.updateBusinessProfile(this.businessProfile).subscribe((response) =>{
       if(response.status === "SUCCESS"){
         this.toastr.success("Success");
+      }
+    },(error: HttpErrorResponse) =>{
+      console.log(error)
+      if(error.error?.errors?.length > 0){
+        this.toastr.error(error.error.errors[0])
+      }else{
+        this.toastr.error("Service Unavailable")
+      }
+    })
+  }
+  deleteBusinessProfile() {
+    this.profileService.deletebusinessProfile(this.businessProfile.id!!).subscribe((response) =>{
+      console.log(response);
+      if(response.status === "SUCCESS"){
+        this.openLoginPage();
+        this.toastr.success("Business Profile Deleted");
       }
     },(error: HttpErrorResponse) =>{
       console.log(error)
