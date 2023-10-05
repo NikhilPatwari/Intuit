@@ -24,7 +24,7 @@ public class RetryService {
 
     @Retryable(value = HttpServerErrorException.class, maxAttempts = 2, backoff = @Backoff(delay = 100))
     public ApprovalResponse getApproval(BusinessProfile profile, String url) {
-        log.info("Inside retry Service. Call for Approval Service");
+        log.debug("Inside retry Service. Call for Approval Service");
         ApprovalResponse response = businessProfileApprovalResource.getApproval(profile, url);
         if (response.getStatus() == ApprovalStatus.FAILED) {
             throw new HttpServerErrorException(HttpStatus.SERVICE_UNAVAILABLE, response.getErrors().toString());
@@ -34,7 +34,7 @@ public class RetryService {
 
     @Recover
     public ApprovalResponse recover(HttpServerErrorException ex, BusinessProfile profile, String url) {
-        log.info("Inside retry service. Recover method called");
+        log.error("Retry service fallback method for url : {} triggered",url);
         return ApprovalResponse.builder().status(ApprovalStatus.FAILED).errors(Collections.singletonList("Internal Server error")).build();
     }
 }

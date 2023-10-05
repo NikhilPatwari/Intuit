@@ -29,7 +29,7 @@ public class BusinessProfileApprovalResource {
             }
     )
     public ApprovalResponse getApproval(BusinessProfile profile, String productUrl) {
-        log.info("sending approval request");
+        log.debug("Sending approval request at url {}", productUrl);
         try {
             return restTemplate.postForObject(productUrl, profile, ApprovalResponse.class);
         } catch (HttpClientErrorException ex) {
@@ -38,6 +38,7 @@ public class BusinessProfileApprovalResource {
     }
 
     public ApprovalResponse getFallBackApproval(BusinessProfile profile, String productUrl) {
+        log.error("Fallback method for api : {} triggered", productUrl);
         return ApprovalResponse.builder().status(ApprovalStatus.FAILED).errors(Collections.singletonList("Service Unavailable")).build();
     }
 }

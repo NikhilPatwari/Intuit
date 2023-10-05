@@ -33,6 +33,7 @@ public class BusinessProfileManagerImpl implements BusinessProfileManager {
     @Override
     public BusinessProfile getBusinessProfileById(String id) {
         if (StringUtils.isBlank(id)) {
+            log.error("Business Profile Id found blank");
             throw new ValidationFailureException("Business Profile Id Cannot Be blank");
         }
         return repository.findById(id).orElseThrow(() -> new NotFoundException(BusinessProfile.class.getSimpleName()));
@@ -41,13 +42,15 @@ public class BusinessProfileManagerImpl implements BusinessProfileManager {
     @Override
     public Map<String, String> createProfile(BusinessProfile profile, String product) {
         if (StringUtils.isNotBlank(profile.getId())) {
-            throw new ValidationFailureException("Invalid Filed 'id' present");
+            log.error("Field 'id' is not allowed in requestBody");
+            throw new ValidationFailureException("Field 'id' is not allowed in requestBody");
         }
         if (StringUtils.isNotBlank(product)) {
             profile.setSubscribedProducts(Collections.singleton(product));
         }
         long count = getCountByPanOrEin(profile.getPan(), profile.getEin());
         if (count != 0) {
+            log.error("Business profile with same pan or ein already exists");
             throw new AlreadyExistsException(BusinessProfile.class.getSimpleName());
         }
         String id = repository.save(profile).getId();
@@ -108,6 +111,7 @@ public class BusinessProfileManagerImpl implements BusinessProfileManager {
         if (response.getStatus() == ApprovalStatus.FAILED) {
             throw new ServiceUnavailableException("Product Validation service");
         } else if (response.getStatus() != ApprovalStatus.APPROVED) {
+            log.error("Business profile update request declined by products");
             throw new ValidationFailureException("Failed to validate profile. Errors : " + response.getErrors());
         }
     }
@@ -117,6 +121,7 @@ public class BusinessProfileManagerImpl implements BusinessProfileManager {
         for (String product : products) {
             String url = getProductUrl(product);
             if (StringUtils.isBlank(url)) {
+                log.error("Business profile validation url of product : {} not found. Please update application properties.", product );
                 throw new NotFoundException("Business profile validation url exposed by product : '" + product + "' ");
             }
             futureResponses.add(asyncService.getApproval(profile, url));
@@ -131,6 +136,7 @@ public class BusinessProfileManagerImpl implements BusinessProfileManager {
     @Override
     public void deleteProfile(String id) {
         if (StringUtils.isBlank(id)) {
+            log.error("Business profile Id cannot be blank");
             throw new ValidationFailureException("Business Profile Id cannot be blank");
         }
         repository.deleteById(id);
