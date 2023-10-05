@@ -22,7 +22,7 @@ import java.util.Collections;
 public class RetryService {
     private final BusinessProfileApprovalResource businessProfileApprovalResource;
 
-    @Retryable(value = HttpServerErrorException.class, maxAttempts = 2, backoff = @Backoff(delay = 100))
+    @Retryable(value = HttpServerErrorException.class, maxAttempts = 3, backoff = @Backoff(delay = 100))
     public ApprovalResponse getApproval(BusinessProfile profile, String url) {
         log.debug("Inside retry Service. Call for Approval Service");
         ApprovalResponse response = businessProfileApprovalResource.getApproval(profile, url);
@@ -34,7 +34,7 @@ public class RetryService {
 
     @Recover
     public ApprovalResponse recover(HttpServerErrorException ex, BusinessProfile profile, String url) {
-        log.error("Retry service fallback method for url : {} triggered",url);
+        log.error("Retry service fallback method for url : {} triggered. Exception",url,ex);
         return ApprovalResponse.builder().status(ApprovalStatus.FAILED).errors(Collections.singletonList("Internal Server error")).build();
     }
 }
