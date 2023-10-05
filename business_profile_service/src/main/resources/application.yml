@@ -1,17 +1,12 @@
 server:
   port: 8081
 spring:
+  profiles:
+    active:
+      @activatedProperties@
   jackson:
     default-property-inclusion: non_null
     serialization:
       indent-output: false
     deserialization:
       fail-on-unknown-properties: false
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/intuit
-product-urls:
-  Quickbooks: "http://localhost:8082/api/businessProfile/validate"
-  QB-Payroll: "http://localhost:8082/api/businessProfile/validate"
-  QB-Payments: "http://localhost:8082/api/businessProfile/validate"
-  TSheets: "http://localhost:8082/api/businessProfile/validate"

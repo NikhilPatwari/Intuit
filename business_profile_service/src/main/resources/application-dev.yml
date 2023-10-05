@@ -1,0 +1,23 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/intuit
+product-urls:
+  Quickbooks: "http://localhost:8082/api/businessProfile/validate"
+  QB-Payroll: "http://localhost:8082/api/businessProfile/validate"
+  QB-Payments: "http://localhost:8082/api/businessProfile/validate"
+  TSheets: "http://localhost:8082/api/businessProfile/validate"
+
+LOG_FILE: BUSINESS_PROFILE_SERVICE
+logging:
+  logback:
+    rollingpolicy:
+      file-name-pattern: ${LOG_FILE}-%d{yyyy-MM-dd}.%i.log
+      max-file-size: 10MB
+      total-size-cap: 110MB
+      max-history: 10
+      clean-history-on-start: false
+  file:
+    name: ${LOG_FILE}/application.log
+  level:
+    ai.lentra.timeline: debug
