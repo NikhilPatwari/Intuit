@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import com.example.demo.exception.ValidationFailureException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -52,6 +53,11 @@ public class BusinessProfileManagerImplTest {
         when(repository.findById(id)).thenReturn(Optional.empty());
         businessProfileManager.getBusinessProfileById(id);
     }
+    @Test(expected = ValidationFailureException.class)
+    public void getProfileExpectExceptionIfBlankID() {
+        String id = " ";
+        businessProfileManager.getBusinessProfileById(id);
+    }
 
     @Test
     public void testCreateProfile() {
@@ -72,5 +78,19 @@ public class BusinessProfileManagerImplTest {
         String product = "testProduct";
         when(repository.countByPanOrEin(profile.getPan(), profile.getEin())).thenReturn(1l);
         businessProfileManager.createProfile(profile, product);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void updateProfileThrowsExceptionWhenProfileNotFound(){
+        BusinessProfile profile = BusinessProfile.builder().id("ABC").pan("abc").ein("def").build();
+        String product = "qb";
+        when(repository.getProductsByProfileId(profile.getId())).thenReturn(Optional.empty());
+        businessProfileManager.updateProfile(profile,product);
+    }
+
+    @Test(expected = ValidationFailureException.class)
+    public void deleteProfileExpectExceptionIfBlankID() {
+        String id = " ";
+        businessProfileManager.deleteProfile(id);
     }
 }

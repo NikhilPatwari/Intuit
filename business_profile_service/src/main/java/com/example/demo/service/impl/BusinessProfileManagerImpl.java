@@ -31,6 +31,9 @@ public class BusinessProfileManagerImpl implements BusinessProfileManager {
 
     @Override
     public BusinessProfile getBusinessProfileById(String id) {
+        if (StringUtils.isBlank(id)) {
+            throw new ValidationFailureException("Business Profile Id Cannot Be blank");
+        }
         return repository.findById(id).orElseThrow(() -> new NotFoundException(BusinessProfile.class.getSimpleName()));
     }
 
@@ -72,7 +75,7 @@ public class BusinessProfileManagerImpl implements BusinessProfileManager {
     }
 
     private void validateProfile(BusinessProfile profile, Set<String> products, String callingProduct) {
-        products = products.stream().filter(p -> StringUtils.equals(p, callingProduct)).collect(Collectors.toSet());
+        products = products.stream().filter(p -> !StringUtils.equals(p, callingProduct)).collect(Collectors.toSet());
         List<Future<ApprovalResponse>> futureResponses = getFutures(profile, products);
         validateFutureResponses(futureResponses);
     }
@@ -123,6 +126,9 @@ public class BusinessProfileManagerImpl implements BusinessProfileManager {
 
     @Override
     public void deleteProfile(String id) {
+        if (StringUtils.isBlank(id)) {
+                throw new ValidationFailureException("Business Profile Id cannot be blank");
+        }
         repository.deleteById(id);
     }
 }
