@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "484dbfee-3c49-4ec3-95a2-54f8b27773e2",
+		"name": "Intuit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17733599"
+	},
+	"item": [
+		{
+			"name": "Update Business Profile",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":\"651aedebc127da38bf5096ea\",\n    \"companyName\": \"Nikhil Company\",\n    \"legalName\": \"Nikhil Legal Name\",\n    \"legalAddress\": {\n        \"addressLine1\": \"1\",\n        \"addressLine2\": \"2\",\n        \"city\": \"Indore\",\n        \"state\": \"MP\",\n        \"zip\": \"452012\",\n        \"country\": \"India\"\n    },\n    \"businessAddress\": {\n        \"addressLine1\": \"1\",\n        \"addressLine2\": \"2\",\n        \"city\": \"Indore\",\n        \"state\": \"MP\",\n        \"zip\": \"452012\",\n        \"country\": \"India\"\n    },\n    \"PAN\": \"PAN1101\",\n    \"EIN\": \"1234123451235\",\n    \"email\": \"nikhilpatari16@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/businessProfile/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"businessProfile",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Business Profile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"companyName\": \"Nikhil Company\",\n    \"legalName\": \"Nikhil Legal Name\",\n    \"legalAddress\": {\n        \"addressLine1\": \"1\",\n        \"addressLine2\": \"2\",\n        \"city\": \"Indore\",\n        \"state\": \"MP\",\n        \"zip\": \"452012\",\n        \"country\": \"India\"\n    },\n    \"businessAddress\": {\n        \"addressLine1\": \"1\",\n        \"addressLine2\": \"2\",\n        \"city\": \"Indore\",\n        \"state\": \"MP\",\n        \"zip\": \"452012\",\n        \"country\": \"India\"\n    },\n    \"PAN\": \"PAN1201\",\n    \"EIN\": \"23451235\",\n    \"email\": \"nikhilpatari16@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/businessProfile/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"businessProfile",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Business Profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/api/businessProfile/findById?id=65186cbcb50b9c5e6a7f7ed4",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"businessProfile",
+						"findById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "65186cbcb50b9c5e6a7f7ed4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Business Profile",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/api/businessProfile/delete?id=651aedebc127da38bf5096ea",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"businessProfile",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "651aedebc127da38bf5096ea"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
