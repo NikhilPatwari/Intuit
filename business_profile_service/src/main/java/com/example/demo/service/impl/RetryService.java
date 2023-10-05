@@ -26,7 +26,7 @@ public class RetryService {
     public ApprovalResponse getApproval(BusinessProfile profile, String url) {
         log.info("Inside retry Service. Call for Approval Service");
         ApprovalResponse response = businessProfileApprovalResource.getApproval(profile, url);
-        if (response.getStatus()== ApprovalStatus.FAILED) {
+        if (response.getStatus() == ApprovalStatus.FAILED) {
             throw new HttpServerErrorException(HttpStatus.SERVICE_UNAVAILABLE, response.getErrors().toString());
         }
         return response;

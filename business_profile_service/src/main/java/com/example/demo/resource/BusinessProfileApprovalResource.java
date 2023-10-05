@@ -23,7 +23,7 @@ public class BusinessProfileApprovalResource {
     @HystrixCommand(
             fallbackMethod = "getFallBackApproval",
             commandProperties = {
-                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "50"),
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "500"),
                     @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),
                     @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50")
             }

@@ -1,18 +1,16 @@
 package com.example.demo.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-@Component
+@Configuration
+@ConditionalOnProperty(value = "allowCors")
 public class CorsConfig {
-    /**
-     * Cors Filter enables profile wise allowed origin
-     * @return FilterRegistrationBean<DomainContextFilter>
-     */
     @Bean
     public FilterRegistrationBean<CorsFilter> corsFilter(){
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

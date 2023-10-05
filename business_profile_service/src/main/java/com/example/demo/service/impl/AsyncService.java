@@ -15,7 +15,7 @@ import java.util.concurrent.Future;
 public class AsyncService {
     private final RetryService retryService;
 
-    @Async
+    @Async("threadPoolExecutor")
     public Future<ApprovalResponse> getApproval(BusinessProfile profile, String url) {
         ApprovalResponse response = retryService.getApproval(profile, url);
         return new AsyncResult<>(response);

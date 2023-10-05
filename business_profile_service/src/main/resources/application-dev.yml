@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/intuit
+      uri: mongodb://localhost:27017/intuit?maxpoolsize=10
 product-urls:
   Quickbooks: "http://localhost:8082/api/businessProfile/validate"
   QB-Payroll: "http://localhost:8082/api/businessProfile/validate"
@@ -21,3 +21,4 @@ logging:
     name: ${LOG_FILE}/application.log
   level:
     ai.lentra.timeline: debug
+allowCors: true
