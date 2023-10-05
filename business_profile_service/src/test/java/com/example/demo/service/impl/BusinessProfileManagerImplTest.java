@@ -26,12 +26,6 @@ public class BusinessProfileManagerImplTest {
     @Mock
     private BusinessProfileRepository repository;
 
-    @Mock
-    private AsyncService asyncService;
-
-    @Mock
-    private Environment env;
-
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -53,6 +47,7 @@ public class BusinessProfileManagerImplTest {
         when(repository.findById(id)).thenReturn(Optional.empty());
         businessProfileManager.getBusinessProfileById(id);
     }
+
     @Test(expected = ValidationFailureException.class)
     public void getProfileExpectExceptionIfBlankID() {
         String id = " ";
@@ -72,6 +67,12 @@ public class BusinessProfileManagerImplTest {
         assertEquals(id, result.get("id"));
     }
 
+    @Test(expected = ValidationFailureException.class)
+    public void testCreateProfileThrowsExceptionIfIdNotBlank() {
+        BusinessProfile profile = BusinessProfile.builder().id("abc").build();
+        businessProfileManager.createProfile(profile, "qb");
+    }
+
     @Test(expected = AlreadyExistsException.class)
     public void testCreateProfileAlreadyExists() {
         BusinessProfile profile = BusinessProfile.builder().pan("abc").ein("def").build();
@@ -81,11 +82,11 @@ public class BusinessProfileManagerImplTest {
     }
 
     @Test(expected = NotFoundException.class)
-    public void updateProfileThrowsExceptionWhenProfileNotFound(){
+    public void updateProfileThrowsExceptionWhenProfileNotFound() {
         BusinessProfile profile = BusinessProfile.builder().id("ABC").pan("abc").ein("def").build();
         String product = "qb";
         when(repository.getProductsByProfileId(profile.getId())).thenReturn(Optional.empty());
-        businessProfileManager.updateProfile(profile,product);
+        businessProfileManager.updateProfile(profile, product);
     }
 
     @Test(expected = ValidationFailureException.class)

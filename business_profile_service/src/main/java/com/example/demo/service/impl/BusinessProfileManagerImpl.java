@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import javax.xml.bind.ValidationException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -39,6 +40,9 @@ public class BusinessProfileManagerImpl implements BusinessProfileManager {
 
     @Override
     public Map<String, String> createProfile(BusinessProfile profile, String product) {
+        if (StringUtils.isNotBlank(profile.getId())) {
+            throw new ValidationFailureException("Invalid Filed 'id' present");
+        }
         if (StringUtils.isNotBlank(product)) {
             profile.setSubscribedProducts(Collections.singleton(product));
         }
@@ -127,7 +131,7 @@ public class BusinessProfileManagerImpl implements BusinessProfileManager {
     @Override
     public void deleteProfile(String id) {
         if (StringUtils.isBlank(id)) {
-                throw new ValidationFailureException("Business Profile Id cannot be blank");
+            throw new ValidationFailureException("Business Profile Id cannot be blank");
         }
         repository.deleteById(id);
     }
